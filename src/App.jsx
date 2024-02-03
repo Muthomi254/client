@@ -1,10 +1,19 @@
-import React from 'react'
+// src/App.jsx
+import React from 'react';
+import Register from './components/Register';
+// import Login from './components/Login';
+// import Logout from './components/Logout';
+import { AuthProvider } from './context/AuthContext';
 
-
-function App() {
+const App = () => {
   return (
-    <div>App</div>
-  )
-}
+    <AuthProvider>
+      <div>
+        <Register />
+        {/* <Login />
+        <Logout /> */}
+      </div>
+    </AuthProvider>
+  );
+};
 
-export default App
