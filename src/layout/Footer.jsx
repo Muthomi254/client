@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
   // Define the theme color
-  const themeColor = 'bg-skyblue';
+  const themeColor = 'bg-blue-200';
 
   return (
     <footer className={`${themeColor} p-4 mt-8`}>
