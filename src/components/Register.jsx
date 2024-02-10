@@ -1,7 +1,14 @@
+
+
+
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'; // Import useHistory hook
 import { useAuth } from '../context/AuthContext';
 import registerImage from '../images/register-image.jpg'; // Import the image
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faExclamationCircle, faCheckCircle,} from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
+
 
 const Register = () => {
   const { authFetch } = useAuth();
@@ -45,6 +52,7 @@ const Register = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
+  // Inside your handleRegister function
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
@@ -75,14 +83,38 @@ const Register = () => {
       // Optionally, convert the username to uppercase
       const uppercaseUsername = username.toUpperCase();
 
-      await authFetch('/register', 'POST', {
-        ...formData,
-        username: uppercaseUsername,
+      // Check if the request should be sent as JSON or form data
+      const isJsonRequest = true; // Assuming JSON request by default
+
+      await authFetch('/register', 'POST', formData, {
+        'Content-Type': 'application/json', // Always send as JSON
       });
-      console.log('Registration successful!');
-      // Redirect or perform additional actions after successful registration
+
+      // Use SweetAlert to show a success message
+      Swal.fire({
+        icon: 'success',
+        title: 'Registration successful!',
+        text: 'You can now log in with your credentials.',
+      }).then(() => {
+        // Redirect to login page after showing the success message
+        window.location.href = '/login';
+      });
+
+      // Clear form data
+      setFormData({
+        username: '',
+        email: '',
+        phone_number: '',
+        password: '',
+        confirm_password: '',
+      });
     } catch (error) {
-      setError(error.message);
+      // Use SweetAlert to show an error message
+      Swal.fire({
+        icon: 'error',
+        title: 'Registration failed',
+        text: error.message,
+      });
       console.error('Registration failed:', error.message);
     }
   };
@@ -104,7 +136,24 @@ const Register = () => {
           </div>
           <div className="flex-grow">
             <h2 className="text-3xl font-semibold mb-6">Register</h2>
-            {error && <div className="text-red-500 mb-4">{error}</div>}
+            {error && (
+              <div className="flex items-center mb-4">
+                <FontAwesomeIcon
+                  icon={faExclamationCircle}
+                  className="text-red-500 mr-2"
+                />
+                <p className="text-red-500">{error}</p>
+              </div>
+            )}
+            {error === 'Registration successful!' && (
+              <div className="flex items-center mb-4">
+                <FontAwesomeIcon
+                  icon={faCheckCircle}
+                  className="text-green-500 mr-2"
+                />
+                <p className="text-green-500">{error}</p>
+              </div>
+            )}
             <div className="mb-4">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
