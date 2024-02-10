@@ -28,7 +28,7 @@ const Navbar = () => {
               </Link>
               <button
                 onClick={logout}
-                className="text-grey hover:text-white hover:underline hover:text-blue-600"
+                className="text-grey hover:text-white hover:underline hover:font-bold"
               >
                 Logout
               </button>
