@@ -1,11 +1,7 @@
-
-
-
 // import React, { useState, useEffect } from 'react';
 // import { useAuth } from '../context/AuthContext';
 // // import { formatLastSeen } from '../utils/utils'; // Adjust the import path accordingly
 // import { FaUserCircle } from 'react-icons/fa';
-
 
 // const Profile = () => {
 //   const { authFetch, isAuthenticated } = useAuth();
@@ -145,11 +141,11 @@ const Profile = () => {
   };
 
   return (
-    <div className="container mx-auto mt-8">
-      <div className="bg-white rounded-lg overflow-hidden shadow-lg">
+    <div className="container mx-auto my-4 mt-8 max-w-md">
+      <div className="bg-white border border-gray-300 rounded-lg overflow-hidden shadow-lg">
         <div className="px-6 py-4">
           <div className="flex items-center">
-            <FaUserCircle className="w-16 h-16 text-gray-500 mr-4" />
+            <FaUserCircle className="w-16 h-16 text-gray-600 mr-4" />
             <div>
               <h1 className="text-2xl font-bold">{profileData.username}</h1>
               <p className="text-gray-600 text-sm">{profileData.email}</p>
